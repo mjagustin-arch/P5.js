@@ -1,0 +1,72 @@
+function setup() {
+  createCanvas(600, 400);
+}
+ 
+function draw() {
+  background(90, 100, 120);
+ 
+  drawCloud(100, 60, 100);
+  drawCloud(300, 40, 80);
+  drawCloud(480, 80, 120);
+ 
+  drawRoad();
+  
+  for (let i = 0; i < 8; i++) {
+    drawBuilding(i * 75, 65, getBuildingHeight(i));
+  }
+  drawRain();
+  }
+ 
+function drawCloud(x, y, size) {
+  noStroke();
+  fill(60, 65, 80);
+  ellipse(x, y, size, size * 0.6);
+  ellipse(x + size * 0.4, y + 5, size * 0.7, size * 0.5);
+}
+ 
+function getBuildingHeight(index) {
+  
+  let h = 110 + abs(sin(index * 1.7)) * 130;
+  return h;
+}
+ 
+function drawBuilding(x, w, h) {
+ 
+  let baseY = 300;       
+  let topY = baseY - h;  
+ 
+  noStroke();
+  fill(60);
+  rect(x, topY, w, h);
+ 
+  fill(255, 220, 100);
+  for (let y = topY + 15; y < baseY - 30; y += 35) {
+    rect(x + 10, y, 12, 18);
+    rect(x + 40, y, 12, 18);
+  }
+}
+ 
+function drawRoad() {
+  let roadY = 320;
+ 
+  noStroke();
+  fill(150);
+  rect(0, 300, width, 20);
+ 
+  fill(40);
+  rect(0, roadY, width, height - roadY);
+ 
+  fill(240, 220, 80);
+  for (let x = 0; x < width; x += 60) {
+    rect(x + 10, roadY + 38, 30, 4);
+  }
+}
+ 
+function drawRain() {
+  stroke(170, 200, 255);
+  for (let i = 0; i < 100; i++) {
+    let x = (i * 37) % width;
+    let y = (frameCount * 8 + i * 53) % height;
+    line(x, y, x - 2, y + 10);
+  }
+}
